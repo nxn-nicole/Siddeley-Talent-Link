@@ -11,7 +11,7 @@ const iconMap: Record<string, LucideIcon> = {
 
 export default function OurTeam() {
   return (
-    <section className="w-full min-h-[80vh] flex flex-col justify-center bg-gray-50 py-20 px-6">
+    <section id="our-team" className="w-full min-h-[80vh] flex flex-col justify-center bg-gray-50 py-20 px-6 scroll-mt-16">
       <div className="max-w-6xl mx-auto w-full">
         <div className="mb-12">
           <p

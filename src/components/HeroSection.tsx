@@ -31,7 +31,8 @@ export default function HeroSection() {
 
   return (
     <section
-      className="relative flex items-center min-h-[80vh] w-full bg-cover bg-center"
+      id="hero"
+      className="relative flex items-center min-h-[80vh] w-full bg-cover bg-center scroll-mt-16"
       style={{ backgroundImage: "url(/building-background.jpg)" }}
     >
       <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
