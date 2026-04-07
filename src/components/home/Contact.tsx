@@ -1,6 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import content from "@/content/contact.json";
 
 type ContactFormData = {
   firstName: string;
@@ -27,37 +28,36 @@ export default function Contact() {
   };
 
   const inputBase =
-    "w-full bg-transparent border rounded-lg px-4 py-3 text-white placeholder-gray-500 outline-none transition focus:border-[#FB8C00]";
-  const inputNormal = `${inputBase} border-gray-600`;
+    "w-full bg-white border rounded-lg px-4 py-3 text-gray-900 placeholder-gray-400 outline-none transition focus:border-[#FB8C00]";
+  const inputNormal = `${inputBase} border-gray-300`;
   const inputError = `${inputBase} border-red-500`;
+
+  const { fields } = content;
 
   return (
     <section
       id="contact"
-      className="w-full bg-[#0d0d14] py-20 px-6 scroll-mt-16"
+      className="w-full py-20 px-6 scroll-mt-16"
+      style={{ backgroundColor: "#F2F1EF" }}
     >
       <div className="max-w-6xl mx-auto">
         <h2
-          className="text-4xl md:text-5xl font-extrabold text-white mb-3"
+          className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-3"
           style={{ fontFamily: "var(--font-geist-sans), Arial, Helvetica, sans-serif" }}
         >
-          Contact us
+          {content.sectionTitle}
         </h2>
-        <p className="text-gray-400 mb-12">
-          Get in touch with our talent specialists.
-        </p>
+        <p className="text-gray-500 mb-12">{content.sectionSubtitle}</p>
 
         <div className="grid md:grid-cols-2 gap-8 items-start">
           {/* Form card */}
-          <div className="bg-[#16161f] rounded-2xl p-8">
-            <h3 className="text-xl font-bold text-white mb-1">Send us a Message</h3>
-            <p className="text-gray-400 text-sm mb-6">
-              Got a question? Send it through and we&apos;ll get back to you.
-            </p>
+          <div className="bg-gray-50 border border-gray-200 rounded-2xl p-8">
+            <h3 className="text-xl font-bold text-gray-900 mb-1">{content.formTitle}</h3>
+            <p className="text-gray-500 text-sm mb-6">{content.formSubtitle}</p>
 
             {isSubmitSuccessful ? (
-              <p className="text-green-400 font-medium py-8 text-center">
-                Message sent! We&apos;ll be in touch shortly.
+              <p className="text-green-600 font-medium py-8 text-center">
+                {content.successMessage}
               </p>
             ) : (
               <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
@@ -65,8 +65,8 @@ export default function Contact() {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <input
-                      {...register("firstName", { required: "Required" })}
-                      placeholder="First Name*"
+                      {...register("firstName", { required: fields.firstName.errorRequired })}
+                      placeholder={fields.firstName.placeholder}
                       className={errors.firstName ? inputError : inputNormal}
                     />
                     {errors.firstName && (
@@ -75,8 +75,8 @@ export default function Contact() {
                   </div>
                   <div>
                     <input
-                      {...register("lastName", { required: "Required" })}
-                      placeholder="Last Name*"
+                      {...register("lastName", { required: fields.lastName.errorRequired })}
+                      placeholder={fields.lastName.placeholder}
                       className={errors.lastName ? inputError : inputNormal}
                     />
                     {errors.lastName && (
@@ -90,14 +90,14 @@ export default function Contact() {
                   <input
                     {...register("email", {
                       validate: (v) =>
-                        v || mobileNumber || "Please provide an email or mobile number",
+                        v || mobileNumber || fields.email.errorContact,
                       pattern: {
                         value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                        message: "Invalid email address",
+                        message: fields.email.errorInvalid,
                       },
                     })}
                     type="email"
-                    placeholder="Email*"
+                    placeholder={fields.email.placeholder}
                     className={errors.email ? inputError : inputNormal}
                   />
                   {errors.email && (
@@ -110,10 +110,10 @@ export default function Contact() {
                   <input
                     {...register("mobileNumber", {
                       validate: (v) =>
-                        v || email || "Please provide an email or mobile number",
+                        v || email || fields.mobileNumber.errorContact,
                     })}
                     type="tel"
-                    placeholder="Mobile Number*"
+                    placeholder={fields.mobileNumber.placeholder}
                     className={errors.mobileNumber ? inputError : inputNormal}
                   />
                   {errors.mobileNumber && (
@@ -124,9 +124,9 @@ export default function Contact() {
                 {/* Message */}
                 <div>
                   <textarea
-                    {...register("message", { required: "Please enter a message" })}
+                    {...register("message", { required: fields.message.errorRequired })}
                     rows={5}
-                    placeholder="Your role requirements / additional info*"
+                    placeholder={fields.message.placeholder}
                     className={`${errors.message ? inputError : inputNormal} resize-none`}
                   />
                   {errors.message && (
@@ -137,20 +137,20 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-4 rounded-full font-semibold text-gray-900 transition hover:opacity-90 disabled:opacity-60"
+                  className="w-full py-4 rounded-full font-semibold text-white transition hover:opacity-90 disabled:opacity-60"
                   style={{ backgroundColor: "#FB8C00" }}
                 >
-                  {isSubmitting ? "Sending…" : "Send Message"}
+                  {isSubmitting ? content.submittingButton : content.submitButton}
                 </button>
               </form>
             )}
           </div>
 
-          {/* Right side placeholder */}
+          {/* Office image */}
           <div className="hidden md:block rounded-2xl overflow-hidden h-full min-h-120 relative">
             <img
               src="/world-trade-center.jpg"
-              alt="Office"
+              alt={content.officeImageAlt}
               className="w-full h-full object-cover"
             />
           </div>
