@@ -6,6 +6,11 @@
     "titleLine2Accent": "未来",
     "titleLine2AccentFirst": "起点"
   },
+  "map": {
+    "label": "我们的位置",
+    "title": "来找我们",
+    "address": "Tower 3, Level 9 / 18-38 Siddeley St, Docklands VIC 3005"
+  },
   "intro": {
     "label": "我们的故事",
     "title": "从墨尔本出发，走向你的未来",
