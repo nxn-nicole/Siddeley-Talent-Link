@@ -1,10 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { MapPin, Building2 } from "lucide-react";
 import content from "@/content/contact.json";
-import GoogleMapModal from "./GoogleMapModal";
 
 type ContactFormData = {
   firstName: string;
@@ -15,7 +13,12 @@ type ContactFormData = {
 };
 
 export default function Contact() {
-  const [mapOpen, setMapOpen] = useState(false);
+  const openGoogleMaps = () => {
+    window.open(
+      "https://www.google.com/maps/search/?api=1&query=Tower+3+Level+9+18-38+Siddeley+St+Docklands+VIC+3005",
+      "_blank"
+    );
+  };
 
   const {
     register,
@@ -40,7 +43,6 @@ export default function Contact() {
   const { fields } = content;
 
   return (
-    <>
     <section
       id="contact"
       className="w-full py-20 px-6 scroll-mt-16"
@@ -194,7 +196,7 @@ export default function Contact() {
               </span>
               <div className="flex items-center gap-2">
                 <button
-                  onClick={() => setMapOpen(true)}
+                  onClick={openGoogleMaps}
                   className="w-10 h-10 rounded-full flex items-center justify-center transition hover:bg-white/30"
                   style={{ backgroundColor: "rgba(255,255,255,0.18)" }}
                   aria-label="查看地址"
@@ -216,7 +218,5 @@ export default function Contact() {
       </div>
     </section>
 
-    {mapOpen && <GoogleMapModal onClose={() => setMapOpen(false)} />}
-    </>
   );
 }
