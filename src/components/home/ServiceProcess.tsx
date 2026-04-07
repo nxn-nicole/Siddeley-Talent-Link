@@ -47,16 +47,32 @@ export default function ServiceProcess() {
         <div className="hidden md:block">
           {/* Icons row with connector line behind */}
           <div className="relative grid grid-cols-4 mb-10">
-            {/* Single connector line spanning from center of col1 to center of col4 */}
-            <div
-              className="absolute top-10 h-px"
-              style={{
-                left: "12.5%",
-                right: "12.5%",
-                background:
-                  "linear-gradient(to right, #FB8C00, #FB8C00aa, #e5e7eb)",
-              }}
-            />
+            {/* Wavy connector — peaks sit at each icon center */}
+            <svg
+              className="absolute pointer-events-none"
+              style={{ top: "40px", left: "12.5%", right: "12.5%", height: "20px" }}
+              width="100%"
+              height="20"
+              viewBox="0 0 300 20"
+              preserveAspectRatio="none"
+              overflow="visible"
+            >
+              <defs>
+                <linearGradient id="waveGrad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor="#FB8C00" />
+                  <stop offset="60%" stopColor="#FB8C00" stopOpacity="0.6" />
+                  <stop offset="100%" stopColor="#e5e7eb" />
+                </linearGradient>
+              </defs>
+              {/* Peaks at x=0,100,200,300 (icon centers); valleys at x=50,150,250 */}
+              <path
+                d="M 0,0 C 25,0 25,18 50,18 C 75,18 75,0 100,0 C 125,0 125,18 150,18 C 175,18 175,0 200,0 C 225,0 225,18 250,18 C 275,18 275,0 300,0"
+                fill="none"
+                stroke="url(#waveGrad)"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+            </svg>
             {content.steps.map((step, index) => {
               const Icon = iconMap[step.icon];
               return (
