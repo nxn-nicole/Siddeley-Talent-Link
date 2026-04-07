@@ -85,10 +85,13 @@ export default function SuccessCases() {
       </div>
 
       {/* Row 1 — scrolls left */}
-      <div className="overflow-hidden mb-4">
+      <div
+        className="overflow-hidden mb-4"
+        style={{ maskImage: "linear-gradient(to right, transparent, black 12%, black 88%, transparent)", WebkitMaskImage: "linear-gradient(to right, transparent, black 12%, black 88%, transparent)" }}
+      >
         <div
           className="flex w-max"
-          style={{ animation: "marquee-left 35s linear infinite" }}
+          style={{ animation: "marquee-left 55s linear infinite" }}
         >
           {[...row1, ...row1].map((item, i) => (
             <Card key={i} item={item} />
@@ -97,10 +100,13 @@ export default function SuccessCases() {
       </div>
 
       {/* Row 2 — scrolls right */}
-      <div className="overflow-hidden">
+      <div
+        className="overflow-hidden"
+        style={{ maskImage: "linear-gradient(to right, transparent, black 12%, black 88%, transparent)", WebkitMaskImage: "linear-gradient(to right, transparent, black 12%, black 88%, transparent)" }}
+      >
         <div
           className="flex w-max"
-          style={{ animation: "marquee-right 35s linear infinite" }}
+          style={{ animation: "marquee-right 55s linear infinite" }}
         >
           {[...row2, ...row2].map((item, i) => (
             <Card key={i} item={item} />
