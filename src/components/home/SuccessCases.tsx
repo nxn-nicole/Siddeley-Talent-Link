@@ -6,7 +6,13 @@ function StarRating({ count }: { count: number }) {
   return (
     <div className="flex gap-0.5 mt-1">
       {Array.from({ length: 5 }).map((_, i) => (
-        <svg key={i} width="14" height="14" viewBox="0 0 20 20" fill={i < count ? "#FB8C00" : "#e5e7eb"}>
+        <svg
+          key={i}
+          width="14"
+          height="14"
+          viewBox="0 0 20 20"
+          fill={i < count ? "#FB8C00" : "#e5e7eb"}
+        >
           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.448a1 1 0 00-.364 1.118l1.286 3.957c.3.921-.755 1.688-1.54 1.118L10 15.347l-3.951 2.878c-.785.57-1.84-.197-1.54-1.118l1.286-3.957a1 1 0 00-.364-1.118L2.063 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69L9.049 2.927z" />
         </svg>
       ))}
@@ -14,7 +20,7 @@ function StarRating({ count }: { count: number }) {
   );
 }
 
-function Card({ item }: { item: typeof cases[0] }) {
+function Card({ item }: { item: (typeof cases)[0] }) {
   const initial = item.name.charAt(0);
   return (
     <div
@@ -34,7 +40,9 @@ function Card({ item }: { item: typeof cases[0] }) {
         </div>
       </div>
       <p className="text-sm font-bold text-gray-900">{item.headline}</p>
-      <p className="text-sm text-gray-500 leading-relaxed line-clamp-4">{item.review}</p>
+      <p className="text-sm text-gray-500 leading-relaxed line-clamp-4">
+        {item.review}
+      </p>
     </div>
   );
 }
@@ -45,7 +53,17 @@ const row2 = cases.slice(mid);
 
 export default function SuccessCases() {
   return (
-    <section id="cases" className="w-full py-24 bg-white overflow-hidden scroll-mt-16">
+    <section id="cases" className="w-full py-24 bg-white scroll-mt-16">
+      <style>{`
+        @keyframes marquee-left {
+          0%   { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        @keyframes marquee-right {
+          0%   { transform: translateX(-50%); }
+          100% { transform: translateX(0); }
+        }
+      `}</style>
       <div className="max-w-6xl mx-auto px-6 mb-16">
         <div className="flex flex-col items-center text-center">
           <div className="flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full border border-gray-200 bg-gray-50 w-fit">
@@ -67,8 +85,11 @@ export default function SuccessCases() {
       </div>
 
       {/* Row 1 — scrolls left */}
-      <div className="mb-4">
-        <div className="flex animate-marquee-left w-max">
+      <div className="overflow-hidden mb-4">
+        <div
+          className="flex w-max"
+          style={{ animation: "marquee-left 35s linear infinite" }}
+        >
           {[...row1, ...row1].map((item, i) => (
             <Card key={i} item={item} />
           ))}
@@ -76,8 +97,11 @@ export default function SuccessCases() {
       </div>
 
       {/* Row 2 — scrolls right */}
-      <div>
-        <div className="flex animate-marquee-right w-max">
+      <div className="overflow-hidden">
+        <div
+          className="flex w-max"
+          style={{ animation: "marquee-right 35s linear infinite" }}
+        >
           {[...row2, ...row2].map((item, i) => (
             <Card key={i} item={item} />
           ))}
