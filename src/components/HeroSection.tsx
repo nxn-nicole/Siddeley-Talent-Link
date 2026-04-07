@@ -40,6 +40,17 @@ export default function HeroSection() {
         className="relative z-10 flex flex-col items-start justify-center w-full max-w-2xl px-6 py-24"
         style={{ marginLeft: "8vw" }}
       >
+        {/* Tag */}
+        <div className="flex items-center gap-2 mb-6 px-4 py-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm w-fit">
+          <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: "#FB8C00" }} />
+          <span
+            className="text-xs font-semibold tracking-widest uppercase text-white/90"
+            style={{ fontFamily: "var(--font-geist-sans), Arial, Helvetica, sans-serif" }}
+          >
+            {content.tag}
+          </span>
+        </div>
+
         <h1
           className="text-5xl md:text-6xl font-extrabold mb-6"
           style={{
