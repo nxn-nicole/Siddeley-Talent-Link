@@ -1,8 +1,22 @@
-import content from "@/content/successCases.json";
-
-const cases = content.cases;
+import { useMessages } from "next-intl";
 
 const font = "var(--font-geist-sans), Arial, Helvetica, sans-serif";
+
+type SuccessCase = {
+  name: string;
+  avatarColor: string;
+  stars: number;
+  headline: string;
+  review: string;
+};
+
+type SuccessCasesMessages = {
+  successCases: {
+    sectionLabel: string;
+    sectionTitle: string;
+    cases: SuccessCase[];
+  };
+};
 
 function StarRating({ count }: { count: number }) {
   return (
@@ -22,7 +36,7 @@ function StarRating({ count }: { count: number }) {
   );
 }
 
-function Card({ item }: { item: (typeof cases)[0] }) {
+function Card({ item }: { item: SuccessCase }) {
   const initial = item.name.charAt(0);
   return (
     <div
@@ -49,11 +63,12 @@ function Card({ item }: { item: (typeof cases)[0] }) {
   );
 }
 
-const mid = Math.ceil(cases.length / 2);
-const row1 = cases.slice(0, mid);
-const row2 = cases.slice(mid);
-
 export default function SuccessCases() {
+  const { successCases: content } = useMessages() as SuccessCasesMessages;
+  const mid = Math.ceil(content.cases.length / 2);
+  const row1 = content.cases.slice(0, mid);
+  const row2 = content.cases.slice(mid);
+
   return (
     <section id="cases" className="w-full py-24 bg-white scroll-mt-16">
       <style>{`

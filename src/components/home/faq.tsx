@@ -2,16 +2,30 @@
 
 import { useState } from "react";
 import { Plus } from "lucide-react";
-import content from "@/content/faq.json";
+import { useMessages } from "next-intl";
 
 const font = "var(--font-geist-sans), Arial, Helvetica, sans-serif";
+
+type FaqEntry = {
+  question: string;
+  answer: string;
+};
+
+type FaqMessages = {
+  faq: {
+    sectionLabel: string;
+    titleBefore: string;
+    titleAccent: string;
+    items: FaqEntry[];
+  };
+};
 
 function FaqItem({
   item,
   open,
   onToggle,
 }: {
-  item: { question: string; answer: string };
+  item: FaqEntry;
   open: boolean;
   onToggle: () => void;
 }) {
@@ -50,10 +64,11 @@ function FaqItem({
 }
 
 export default function FAQ() {
+  const { faq: content } = useMessages() as FaqMessages;
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const items = content.items;
-  const col1 = items.filter((_, i) => i % 2 === 0);
-  const col2 = items.filter((_, i) => i % 2 === 1);
+  const col1 = items.filter((_: FaqEntry, i: number) => i % 2 === 0);
+  const col2 = items.filter((_: FaqEntry, i: number) => i % 2 === 1);
 
   const toggle = (index: number) =>
     setOpenIndex(openIndex === index ? null : index);
@@ -86,7 +101,7 @@ export default function FAQ() {
         {/* Two-column accordion */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
           <div className="flex flex-col gap-4">
-            {col1.map((item) => {
+            {col1.map((item: FaqEntry) => {
               const index = items.indexOf(item);
               return (
                 <FaqItem
@@ -99,7 +114,7 @@ export default function FAQ() {
             })}
           </div>
           <div className="flex flex-col gap-4">
-            {col2.map((item) => {
+            {col2.map((item: FaqEntry) => {
               const index = items.indexOf(item);
               return (
                 <FaqItem

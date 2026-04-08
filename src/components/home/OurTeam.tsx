@@ -1,6 +1,6 @@
 import { Search, Map, Users, ClipboardList } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import content from "@/content/ourTeam.json";
+import { useMessages } from "next-intl";
 
 const iconMap: Record<string, LucideIcon> = {
   Search,
@@ -9,7 +9,23 @@ const iconMap: Record<string, LucideIcon> = {
   ClipboardList,
 };
 
+type TeamMember = {
+  icon: string;
+  role: string;
+  description: string;
+};
+
+type OurTeamMessages = {
+  ourTeam: {
+    sectionLabel: string;
+    sectionTitle: string;
+    members: TeamMember[];
+  };
+};
+
 export default function OurTeam() {
+  const { ourTeam: content } = useMessages() as OurTeamMessages;
+
   return (
     <section id="our-team" className="w-full min-h-[80vh] flex flex-col justify-center bg-gray-50 py-20 px-6 scroll-mt-16">
       <div className="max-w-6xl mx-auto w-full">
@@ -32,7 +48,7 @@ export default function OurTeam() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {content.members.map((member) => {
+          {content.members.map((member: TeamMember) => {
             const Icon = iconMap[member.icon];
             return (
               <div

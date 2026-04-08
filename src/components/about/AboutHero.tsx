@@ -1,6 +1,20 @@
-import content from "@/content/about.json";
+import { useMessages } from "next-intl";
+
+type AboutMessages = {
+  about: {
+    hero: {
+      tag: string;
+      titleLine1: string;
+      titleLine2Before: string;
+      titleLine2Accent: string;
+      titleLine2AccentFirst: string;
+    };
+  };
+};
 
 export default function AboutHero() {
+  const { about: content } = useMessages() as AboutMessages;
+
   return (
     <section
       className="relative flex items-end min-h-[90vh] w-full bg-cover bg-center"

@@ -1,6 +1,6 @@
 import { GraduationCap, FileText, Briefcase, Handshake } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import content from "@/content/coreServices.json";
+import { useMessages } from "next-intl";
 
 const iconMap: Record<string, LucideIcon> = {
   GraduationCap,
@@ -9,7 +9,23 @@ const iconMap: Record<string, LucideIcon> = {
   Handshake,
 };
 
+type ServiceItem = {
+  icon: string;
+  title: string;
+  description: string;
+};
+
+type CoreServicesMessages = {
+  coreServices: {
+    sectionLabel: string;
+    sectionTitle: string;
+    services: ServiceItem[];
+  };
+};
+
 export default function CoreServices() {
+  const { coreServices: content } = useMessages() as CoreServicesMessages;
+
   return (
     <section id="core-services" className="w-full min-h-[80vh] flex flex-col justify-center bg-white py-20 px-6 scroll-mt-16">
       <div className="max-w-6xl mx-auto w-full flex flex-col flex-1 justify-center">
@@ -32,7 +48,7 @@ export default function CoreServices() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {content.services.map((service) => {
+          {content.services.map((service: ServiceItem) => {
             const Icon = iconMap[service.icon];
             return (
               <div

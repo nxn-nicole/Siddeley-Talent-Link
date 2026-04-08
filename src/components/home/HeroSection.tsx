@@ -1,6 +1,17 @@
-import content from "@/content/hero.json";
+import { useMessages } from "next-intl";
+
+type HeroMessages = {
+  hero: {
+    tag: string;
+    title: string;
+    slogan: string;
+    cta: string;
+  };
+};
 
 export default function HeroSection() {
+  const { hero: content } = useMessages() as HeroMessages;
+
   return (
     <section
       id="hero"

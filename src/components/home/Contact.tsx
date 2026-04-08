@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { MapPin, Building2 } from "lucide-react";
-import content from "@/content/contact.json";
+import { useMessages } from "next-intl";
 
 type ContactFormData = {
   firstName: string;
@@ -12,7 +12,36 @@ type ContactFormData = {
   message: string;
 };
 
+type ContactMessages = {
+  contact: {
+    sectionTitle: string;
+    sectionSubtitle: string;
+    formTitle: string;
+    formSubtitle: string;
+    successMessage: string;
+    submitButton: string;
+    submittingButton: string;
+    fields: {
+      firstName: { placeholder: string; errorRequired: string };
+      lastName: { placeholder: string; errorRequired: string };
+      email: {
+        placeholder: string;
+        errorContact: string;
+        errorInvalid: string;
+      };
+      mobileNumber: { placeholder: string; errorContact: string };
+      message: { placeholder: string; errorRequired: string };
+    };
+    office: {
+      imageAlt: string;
+      label: string;
+    };
+  };
+};
+
 export default function Contact() {
+  const { contact: content } = useMessages() as ContactMessages;
+
   const openGoogleMaps = () => {
     window.open(
       "https://www.google.com/maps/search/?api=1&query=Tower+3+Level+9+18-38+Siddeley+St+Docklands+VIC+3005",
@@ -199,7 +228,7 @@ export default function Contact() {
                   onClick={openGoogleMaps}
                   className="w-10 h-10 rounded-full flex items-center justify-center transition hover:bg-white/30"
                   style={{ backgroundColor: "rgba(255,255,255,0.18)" }}
-                  aria-label="查看地址"
+                  aria-label={content.office.label}
                 >
                   <MapPin size={18} className="text-white" />
                 </button>
@@ -207,7 +236,7 @@ export default function Contact() {
                   onClick={() => console.log("office info clicked")}
                   className="w-10 h-10 rounded-full flex items-center justify-center transition hover:bg-white/30"
                   style={{ backgroundColor: "rgba(255,255,255,0.18)" }}
-                  aria-label="办公室信息"
+                  aria-label={content.office.label}
                 >
                   <Building2 size={18} className="text-white" />
                 </button>

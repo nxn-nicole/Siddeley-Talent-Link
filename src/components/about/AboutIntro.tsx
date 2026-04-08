@@ -1,8 +1,20 @@
-import content from "@/content/about.json";
+import { useMessages } from "next-intl";
 
 const font = "var(--font-geist-sans), Arial, Helvetica, sans-serif";
 
+type AboutIntroMessages = {
+  about: {
+    intro: {
+      label: string;
+      title: string;
+      paragraphs: string[];
+    };
+  };
+};
+
 export default function AboutIntro() {
+  const { about: content } = useMessages() as AboutIntroMessages;
+
   return (
     <section
       className="w-full py-44 px-52"
@@ -29,7 +41,7 @@ export default function AboutIntro() {
 
         {/* Paragraphs */}
         <div className="flex flex-col gap-6">
-          {content.intro.paragraphs.map((para, i) => (
+          {content.intro.paragraphs.map((para: string, i: number) => (
             <p
               key={i}
               className="text-lg text-gray-700 leading-relaxed"

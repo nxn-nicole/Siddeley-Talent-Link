@@ -1,22 +1,46 @@
-import content from "@/content/footer.json";
+import Link from "next/link";
+import { useMessages } from "next-intl";
 
 const font = "var(--font-geist-sans), Arial, Helvetica, sans-serif";
 
+type FooterLink = {
+  label: string;
+  href: string;
+};
+
+type FooterMessages = {
+  footer: {
+    brandName1: string;
+    brandName2: string;
+    tagline: string;
+    navLabel: string;
+    navLinks: FooterLink[];
+    contactLabel: string;
+    address: string;
+    email: string;
+    copyrightName: string;
+    copyrightSuffix: string;
+    location: string;
+  };
+};
+
 export default function Footer() {
+  const { footer: content } = useMessages() as FooterMessages;
+
   return (
     <footer style={{ backgroundColor: "#0D1B2A", fontFamily: font }}>
       <div className="max-w-6xl mx-auto px-6 py-16">
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-12">
           {/* Brand */}
           <div className="max-w-xs">
-            <a href="/#hero" className="inline-flex items-center gap-2 mb-4">
+            <Link href="/#hero" className="inline-flex items-center gap-2 mb-4">
               <span className="text-2xl font-extrabold tracking-tight" style={{ color: "#FB8C00" }}>
                 {content.brandName1}
               </span>
               <span className="text-2xl font-extrabold tracking-tight text-white">
                 {content.brandName2}
               </span>
-            </a>
+            </Link>
             <p className="text-sm text-gray-400 leading-relaxed">
               {content.tagline}
             </p>
@@ -28,14 +52,14 @@ export default function Footer() {
               {content.navLabel}
             </p>
             <ul className="flex flex-col gap-3">
-              {content.navLinks.map((link) => (
+              {content.navLinks.map((link: FooterLink) => (
                 <li key={link.href}>
-                  <a
+                  <Link
                     href={link.href}
                     className="text-sm text-gray-400 hover:text-white transition-colors duration-150"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

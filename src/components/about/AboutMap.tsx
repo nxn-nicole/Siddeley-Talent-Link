@@ -1,14 +1,29 @@
 "use client";
 
 import { Map, AdvancedMarker } from "@vis.gl/react-google-maps";
-import content from "@/content/about.json";
+import { useMessages } from "next-intl";
 
 const font = "var(--font-geist-sans), Arial, Helvetica, sans-serif";
 const OFFICE_POSITION = { lat: -37.82243837398955, lng: 144.95363742552018 };
 
+type AboutMapMessages = {
+  about: {
+    map: {
+      label: string;
+      title: string;
+      address: string;
+    };
+  };
+};
+
 export default function AboutMap() {
+  const { about: content } = useMessages() as AboutMapMessages;
+
   return (
-    <section className="w-full py-20 px-6" style={{ backgroundColor: "#F2F1EF" }}>
+    <section
+      className="w-full py-20 px-6"
+      style={{ backgroundColor: "#F2F1EF" }}
+    >
       <div className="max-w-6xl mx-auto">
         {/* Pill tag */}
         <div className="inline-flex items-center px-4 py-1.5 rounded-full border border-gray-300 bg-white mb-6">

@@ -5,7 +5,7 @@ import {
   BadgeCheck,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import content from "@/content/serviceProcess.json";
+import { useMessages } from "next-intl";
 
 const iconMap: Record<string, LucideIcon> = {
   MessageCircle,
@@ -16,7 +16,26 @@ const iconMap: Record<string, LucideIcon> = {
 
 const font = "var(--font-geist-sans), Arial, Helvetica, sans-serif";
 
+type ProcessStep = {
+  number: string;
+  icon: string;
+  titleBefore: string;
+  titleAccent: string;
+  description: string;
+};
+
+type ServiceProcessMessages = {
+  serviceProcess: {
+    sectionLabel: string;
+    titleBefore: string;
+    titleAccent: string;
+    steps: ProcessStep[];
+  };
+};
+
 export default function ServiceProcess() {
+  const { serviceProcess: content } = useMessages() as ServiceProcessMessages;
+
   return (
     <section
       id="process"
@@ -73,7 +92,7 @@ export default function ServiceProcess() {
                 strokeLinecap="round"
               />
             </svg>
-            {content.steps.map((step, index) => {
+            {content.steps.map((step: ProcessStep, index: number) => {
               const Icon = iconMap[step.icon];
               return (
                 <div
@@ -94,7 +113,7 @@ export default function ServiceProcess() {
 
           {/* Text row aligned to same grid */}
           <div className="grid grid-cols-4">
-            {content.steps.map((step) => (
+            {content.steps.map((step: ProcessStep) => (
               <div
                 key={step.number}
                 className="flex flex-col items-center text-center px-4"
@@ -120,7 +139,7 @@ export default function ServiceProcess() {
 
         {/* Mobile: vertical list */}
         <div className="md:hidden flex flex-col gap-10">
-          {content.steps.map((step, index) => {
+          {content.steps.map((step: ProcessStep, index: number) => {
             const Icon = iconMap[step.icon];
             return (
               <div key={step.number} className="flex gap-5 items-start">

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import { Menu, X, ChevronDown } from "lucide-react";
 
 const navLinks = [
@@ -56,26 +57,26 @@ export default function Header() {
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
           {/* Logo */}
-          <a href="/#hero" className="flex items-center gap-2 shrink-0" style={fontStyle}>
+          <Link href="/#hero" className="flex items-center gap-2 shrink-0" style={fontStyle}>
             <span className="text-xl font-extrabold tracking-tight" style={{ color: "#FB8C00" }}>
               Siddeley
             </span>
             <span className="text-xl font-extrabold tracking-tight text-white">Talent Link</span>
-          </a>
+          </Link>
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-1">
-            <a
+            <Link
               href="/#hero"
               className="px-4 py-2 text-sm font-medium text-gray-300 rounded-md transition-colors duration-150 hover:text-white hover:bg-white/10"
               style={fontStyle}
             >
               主页
-            </a>
+            </Link>
 
             {/* Dropdown */}
             <div className="relative" ref={dropdownRef}>
-              <a
+              <Link
                 href={servicesDropdown.href}
                 onClick={() => setDropdownOpen((v) => !v)}
                 className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-gray-300 rounded-md transition-colors duration-150 hover:text-white hover:bg-white/10"
@@ -86,7 +87,7 @@ export default function Header() {
                   size={14}
                   className={`transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""}`}
                 />
-              </a>
+              </Link>
 
               {/* Dropdown panel */}
               <div
@@ -96,7 +97,7 @@ export default function Header() {
                 style={{ backgroundColor: "#0D1B2A" }}
               >
                 {servicesDropdown.items.map((item) => (
-                  <a
+                  <Link
                     key={item.href}
                     href={item.href}
                     onClick={() => setDropdownOpen(false)}
@@ -104,20 +105,20 @@ export default function Header() {
                     style={fontStyle}
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 ))}
               </div>
             </div>
 
             {navLinks.slice(1).map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 className="px-4 py-2 text-sm font-medium text-gray-300 rounded-md transition-colors duration-150 hover:text-white hover:bg-white/10"
                 style={fontStyle}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </nav>
 
@@ -147,26 +148,26 @@ export default function Header() {
         }`}
         style={{ backgroundColor: "#0D1B2A" }}
       >
-        <a
+        <Link
           href="/#hero"
           onClick={() => setMenuOpen(false)}
           className="py-4 text-base font-medium text-gray-300 border-b border-white/10 hover:text-white transition-colors duration-150"
           style={fontStyle}
         >
           主页
-        </a>
+        </Link>
 
         {/* Mobile services accordion */}
         <div className="border-b border-white/10">
           <div className="flex items-center justify-between">
-            <a
+            <Link
               href={servicesDropdown.href}
               onClick={() => setMenuOpen(false)}
               className="py-4 text-base font-medium text-gray-300 hover:text-white transition-colors duration-150"
               style={fontStyle}
             >
               {servicesDropdown.label}
-            </a>
+            </Link>
             <button
               onClick={() => setMobileServicesOpen((v) => !v)}
               className="p-2 text-gray-300 hover:text-white transition-colors duration-150"
@@ -180,7 +181,7 @@ export default function Header() {
           {mobileServicesOpen && (
             <div className="pb-2 pl-4 flex flex-col gap-1">
               {servicesDropdown.items.map((item) => (
-                <a
+                <Link
                   key={item.href}
                   href={item.href}
                   onClick={() => { setMenuOpen(false); setMobileServicesOpen(false); }}
@@ -188,20 +189,20 @@ export default function Header() {
                   style={fontStyle}
                 >
                   {item.label}
-                </a>
+                </Link>
               ))}
             </div>
           )}
         </div>
 
-        <a
+        <Link
           href="/about"
           onClick={() => setMenuOpen(false)}
           className="py-4 text-base font-medium text-gray-300 border-b border-white/10 hover:text-white transition-colors duration-150"
           style={fontStyle}
         >
           关于我们
-        </a>
+        </Link>
       </nav>
     </>
   );
